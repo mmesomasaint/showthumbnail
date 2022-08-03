@@ -1,13 +1,22 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function FileInput({
   name,
   className,
+  img,
   required,
   isFocused,
   handleChange,
 }) {
   const fileInput = useRef()
+  const [bckImg, setBckImg] = useState('')
+
+  const handleInternalChange = (e) => {
+    setBckImg(URL.createObjectURL(e.target.files[0]))
+    return handleChange(e)
+  }
 
   useEffect(() => {
     if (isFocused) {
@@ -25,13 +34,14 @@ export default function FileInput({
         }
         ref={fileInput}
         required={required}
-        onChange={(e) => handleChange(e)}
+        onChange={handleInternalChange}
       />
       <div
-        className={`w-24 h-24 bg-red-700 text-slate-900 font-medium ${className}`}
+        className={`w-24 h-24 text-slate-50 text-5xl font-medium ${className} flex justify-center items-center mx-2 my-1`}
+        style={{'background': `center / cover no-repeat #777 url(${bckImg})`}}
         onClick={() => fileInput.current.click()}
       >
-        Click Me
+        {!bckImg && <FontAwesomeIcon icon={faPlus} />}
       </div>
     </div>
   )
