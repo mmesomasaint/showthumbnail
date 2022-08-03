@@ -1,18 +1,14 @@
 import { useState } from "react";
+import ExtraFileInput from "./Components/ExtraFileInput";
 import FileInput from "./Components/FileInput";
 
-export default function App() {
+export default function App({onHandleChange}) {
   const [fileInputList, setFileInputList] = useState([0, 1, 2, 3])
-
-  const onHandleChange = (e) => {
-    // Do something crazy...
-  }
 
   return (
     <div>
       <div className="flex flex-wrap">
-        {fileInputList.map(fileKey => <FileInput key={fileKey} handleChange={onHandleChange} />)}
-      <button type='button' className="inline" onClick={() => setFileInputList([...fileInputList, fileInputList.length])}>Add Image</button>
+        <ExtraFileInput number={4} />
       </div>
     </div>
   )
