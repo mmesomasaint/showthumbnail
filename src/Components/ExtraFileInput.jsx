@@ -3,11 +3,9 @@ import FileInput from './FileInput'
 
 export default function ExtraFileInput({ number = 0 }) {
   const [disable, setDisable] = useState(true)
-  const [fileInputList, setFileInputList] = useState(() => {
-    const arr = Array.from(Array(number - 1).keys())
-    arr.push(-1) // Push-in the extra addition file input.
-    return arr
-  })
+  const [fileInputList, setFileInputList] = useState(
+    Array.from(Array(number).keys())
+  )
   const [fileInputData, setFileInputData] = useState({})
 
   const onHandleChange = (e) => {

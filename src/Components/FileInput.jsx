@@ -43,7 +43,7 @@ export default function FileInput({
         onChange={handleInternalChange}
       />
       <button
-        className={`w-24 h-24 text-slate-50 text-5xl font-medium ${className} flex justify-center items-center m-1`}
+        className={`w-24 h-24 text-slate-50 text-5xl font-medium ${className} flex justify-center items-center m-1 disabled:opacity-25`}
         style={{'background': `center / cover no-repeat #777 url(${bckImg})`}}
         onClick={handleInternalClick}
         disabled={disabled}
