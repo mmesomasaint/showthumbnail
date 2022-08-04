@@ -1,23 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FileInput from './FileInput'
 
-export default function ExtraFileInput({ number = 0 }) {
+export default function ExtraFileInput({ number = 2 }) {
+  const validNumber = number >= 2 ? number : 2
   const [disable, setDisable] = useState(true)
   const [fileInputList, setFileInputList] = useState(
-    Array.from(Array(number).keys())
+    Array.from(Array(validNumber).keys())
   )
   const [fileInputData, setFileInputData] = useState({})
 
   const onHandleChange = (e) => {
-    setFileInputData({ ...fileInputData, [e.target.name]: e.target.files[0] })
-    if (Object.keys(fileInputData).length === fileInputList.length - 2)
-      setDisable(false)
+    setFileInputData({ ...fileInputData, [e.target.name]: 'filled' })
   }
 
   const onHandleClick = () => {
     setFileInputList((prev) => [...prev, prev.length])
+    // Don't permit creation of new boxes, if one is empty.
     setDisable(true)
   }
+
+  useEffect(() => {
+    // Permit creation of boxes, if all available boxes are filled.
+    if (Object.keys(fileInputData).length === fileInputList.length - 1)
+      setDisable(false)
+  }, [Object.keys(fileInputData).length])
 
   return (
     <div>
